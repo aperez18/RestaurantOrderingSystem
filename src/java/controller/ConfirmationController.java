@@ -1,23 +1,16 @@
 package controller;
 
-import model.OrderService;
-import model.Menu;
-import model.MenuItem;
 import java.io.IOException;
-import java.sql.SQLException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "OrderController", urlPatterns = {"/Controller"})
-public class OrderController extends HttpServlet {
+@WebServlet(name = "ConfirmationController", urlPatterns = {"/confirm"})
+public class ConfirmationController extends HttpServlet {
 
-    private static final String ORDER_PAGE = "order.jsp";
-    private static final String CONFIRMATION_PAGE = "confirm.jsp";
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,15 +21,9 @@ public class OrderController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        OrderService order = new OrderService();
-        Menu menu = order.getMenu();
-
-        request.setAttribute("menu", menu);
-        RequestDispatcher view = request.getRequestDispatcher(ORDER_PAGE);
-        view.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,11 +38,7 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            processRequest(request, response);
-        }catch(SQLException | ClassNotFoundException ex){
-            
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -69,11 +52,7 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            processRequest(request, response);
-        }catch(SQLException | ClassNotFoundException ex){
-            
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -18,18 +18,20 @@ public class MenuDAO {
     }
     
     public Menu getMenu() throws SQLException, ClassNotFoundException{
-        String sql = "SELECT * FROM menu";
-        final String MENU_ID = "menu_id";
-        final String ITEM_NAME = "item_name";
-        final String ITEM_PRICE = "item_price";
-        
-        List<Map> items = db.findRecord(sql, true);
-        for(int i=0; i<items.size(); i++){
-            int id = (int)items.get(i).get(MENU_ID);
-            String name = items.get(i).get(ITEM_NAME).toString();
-            double price = (double)items.get(i).get(ITEM_PRICE);
-            item = new MenuItem(id, name, price);
-            menu.addItem(item);
+        if(menu.getItems().isEmpty()){
+            String sql = "SELECT * FROM menu";
+            final String MENU_ID = "menu_id";
+            final String ITEM_NAME = "item_name";
+            final String ITEM_PRICE = "item_price";
+
+            List<Map> items = db.findRecord(sql, true);
+            for(int i=0; i<items.size(); i++){
+                int id = (int)items.get(i).get(MENU_ID);
+                String name = items.get(i).get(ITEM_NAME).toString();
+                double price = (double)items.get(i).get(ITEM_PRICE);
+                item = new MenuItem(id, name, price);
+                menu.addItem(item);
+            }
         }
         
         return menu;

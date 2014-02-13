@@ -14,8 +14,8 @@
         </p>
         
         <div>
-            <form id="orderForm" name="orderForm" method="POST" action="controller">
-                <input type="submit" id="submit" name="submit" value="submit">
+            <form id="orderForm" name="orderForm" method="POST" action="Controller">
+                <input type="submit" id="submit" name="submit" value="Make An Order">
             </form>
         </div>
     </body>
