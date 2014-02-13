@@ -40,7 +40,7 @@ public class Menu {
         String menuString = "";
         for(int i=0; i<items.size(); i++){
             String item = items.get(i).toString();
-            menuString+=item + "\n";
+            menuString+=item + "<br>";
         }
         return menuString;
     }

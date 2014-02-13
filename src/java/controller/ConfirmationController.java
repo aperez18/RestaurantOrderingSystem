@@ -1,16 +1,21 @@
 package controller;
 
+import model.OrderService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Menu;
 
 @WebServlet(name = "ConfirmationController", urlPatterns = {"/confirm"})
 public class ConfirmationController extends HttpServlet {
 
+    private final String DESTINATION = "confirmation.jsp";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -24,6 +29,27 @@ public class ConfirmationController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        Menu itemsOrdered;
+        OrderService service = null;
+        try{
+            service = new OrderService();
+        }catch(SQLException | ClassNotFoundException ex){
+            
+        }
+        
+        String[] orderedString = request.getParameterValues("menuItems");
+        for(String i: orderedString){
+            try{
+                service.addToOrder(service.getMenu().getItem(i));
+            }catch(SQLException | ClassNotFoundException ex){
+                
+            }
+        }
+        itemsOrdered = service.getOrder();
+        request.setAttribute("order", itemsOrdered);
+        
+        RequestDispatcher view = request.getRequestDispatcher(DESTINATION);
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

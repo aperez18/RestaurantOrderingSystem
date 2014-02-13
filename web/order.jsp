@@ -13,7 +13,7 @@
             Place your order
         </h2>
         <div id="content">
-            <form name="orderForm" method="POST" action=""
+            <form name="orderForm" method="POST" action="confirm"
             <%
                 Menu menu = (Menu)request.getAttribute("menu");
                 List<MenuItem> items = menu.getItems();
@@ -23,7 +23,7 @@
             %>
 
             <input type="checkbox" name="menuItems" value="<%= item %>" /> 
-            <%= (item + ", " + price) %>
+            <%= (item + ": " + price) %>
             <br><br>
 
             <%        
